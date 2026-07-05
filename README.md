@@ -147,7 +147,7 @@ Nhập nội dung như hình và bấm call
 ![alt text](docs/images/rqt_turtlesim_spawn.png)
 
 Ta sẽ tạo được thêm một con rùa
-![alt text](image.png)
+![alt text](docs/images/turtlesim_create_turtle2.png)
 
 ### Service setpen
 
