@@ -1,4 +1,4 @@
-# Khóa học ROS2
+# ROS2
 
 ## 1. Cấu hình môi trường
 
@@ -90,7 +90,7 @@ Khởi động turtlesim:
 ```bash
 ros2 run turtlesim turtlesim_node
 ```
-Kết quả
+Kết quả:
 ```bash
 [INFO] [1783278467.036556781] [turtlesim]: Starting turtlesim with node name /turtlesim
 [INFO] [1783278467.039453937] [turtlesim]: Spawning turtle [turtle1] at x=[5,544445], y=[5,544445], theta=[0,000000]
@@ -111,7 +111,8 @@ Use arrow keys to move the turtle.
 Use g|b|v|c|d|e|r|t keys to rotate to absolute orientations. 'f' to cancel a rotation.
 'q' to quit.
 ```
-Nhấn các phím mũi tên trên bàn phím để di chuyển rùa, rùa di chuyển để lại vệt trắng
+Nhấn các phím mũi tên trên bàn phím để di chuyển rùa, rùa di chuyển để lại vệt trắng:
+
 ![alt text](docs/images/turtlesim_move.png)
 
 Xem các node, topic, service, action bằng cách sử dụng lệch sau:
@@ -138,15 +139,15 @@ rqt
 Khi chạy rqt lần đầu, kết quả như bên dưới:
 ![alt text](docs/images/rqt_start.png)
 
-Chọn **Plugins > Services >Service Caller**
+Chọn **Plugins > Services >Service Caller**:
 ![alt text](docs/images/rqt_service.png)
 
 Nhấn vào nút làm mới bên trái Service. Nhấn vào nút mũi tên của Service và chọn `/spawn`
 
-Nhập nội dung như hình và bấm call
+Nhập nội dung như hình và bấm call:
 ![alt text](docs/images/rqt_turtlesim_spawn.png)
 
-Ta sẽ tạo được thêm một con rùa
+Ta sẽ tạo được thêm một con rùa:
 ![alt text](docs/images/turtlesim_create_turtle2.png)
 
 ### Service setpen
@@ -159,7 +160,7 @@ Ta sẽ tạo được thêm một con rùa
 
 ### Điều khiển turtle2
 
-Thêm một cửa sổ terminal khác
+Thêm một cửa sổ terminal khác:
 ```bash
 ros2 run turtlesim turtle_teleop_key --ros-args --remap turtle1/cmd_vel:=turtle2/cmd_vel --remap turtle1/rotate_absolute:=turtle2/rotate_absolute
 ```
@@ -168,3 +169,105 @@ ros2 run turtlesim turtle_teleop_key --ros-args --remap turtle1/cmd_vel:=turtle2
 
 Điều khiển terminal 2 -> turtle2 di chuyển
 
+## 3. Node
+
+### Đồ thị ros2
+
+ROS Graph gồm:
+- Node: chương trình đang chạy
+- Topic: đường truyền giữa các node
+- Service: request/respone giữa các node
+- Action: tác vụ dài có phản hồi tiến trình
+- Connection: các liên kết giữa những thành phần đó
+
+Mỗi node nên chịu trách nhiệm cho mục đích duy nhất. Mỗi node có thể gửi và nhận dữ liệu từ node khác thông qua topic, service, action hoặc parameters
+
+Hệ thống robot hoàn chỉnh bao gồm nhiều node hoạt động phối hợp, một tệp thực thi duy nhất có thể chứa một hoặc nhiều nút
+
+### ros2 run
+
+Lệnh này chạy một tệp thực thi từ gói phần mềm
+
+```bash
+ros2 run <package_name> <executable_name>
+```
+
+Ví dụ:
+```bash
+ros2 run turtlesim turtlesim_node
+```
+
+- `turtlesim` là gói package
+- `turtlesim_node` là tên tệp thực thi
+
+### ros2 node list
+
+Hiển thị tên của tất cả các node đang chạy
+
+Mở terminal 1:
+```bash
+ros2 run turtlesim turtlesim_node
+```
+
+Mở terminal 2:
+```bash
+ros2 node list
+```
+Kết quả:
+```bash
+/turtlesim
+```
+
+### remap
+
+`remap` cho phép gán lại các giá trị thuộc tính của node
+
+Ví dụ việc đổi tên cho node /turtlesim:
+```bash
+ros2 run turtlesim turtlesim_node --ros-args --remap __node:=my_turtle
+```
+
+### ros2 node info
+
+Truy cập thêm thông tin về node bằng lệnh:
+```bash
+ros2 node info <node_name>
+```
+
+Ví dụ:
+```bash
+ros2 node info /my_turtle
+```
+Kết quả:
+```bash
+/my_turtle
+  Subscribers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /turtle1/cmd_vel: geometry_msgs/msg/Twist
+  Publishers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+    /turtle1/color_sensor: turtlesim/msg/Color
+    /turtle1/pose: turtlesim/msg/Pose
+  Service Servers:
+    /clear: std_srvs/srv/Empty
+    /kill: turtlesim/srv/Kill
+    /my_turtle/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /my_turtle/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /my_turtle/get_parameters: rcl_interfaces/srv/GetParameters
+    /my_turtle/get_type_description: type_description_interfaces/srv/GetTypeDescription
+    /my_turtle/list_parameters: rcl_interfaces/srv/ListParameters
+    /my_turtle/set_parameters: rcl_interfaces/srv/SetParameters
+    /my_turtle/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+    /reset: std_srvs/srv/Empty
+    /spawn: turtlesim/srv/Spawn
+    /turtle1/set_pen: turtlesim/srv/SetPen
+    /turtle1/teleport_absolute: turtlesim/srv/TeleportAbsolute
+    /turtle1/teleport_relative: turtlesim/srv/TeleportRelative
+  Service Clients:
+
+  Action Servers:
+    /turtle1/rotate_absolute: turtlesim/action/RotateAbsolute
+  Action Clients:
+```
+Nhìn vào kết quả, `ros2 node info` trả về danh sách subcribers, publishers, services và actions
