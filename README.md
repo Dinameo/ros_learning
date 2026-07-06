@@ -311,6 +311,7 @@ ros2 topic info /turtle1/cmd_vel -v
 ros2 topic info /turtle1/cmd_vel -verbose
 ```
 Kết quả:
+
 ![alt text](docs/images/ros2_topic_info_v.png)
 
 ### loại của topic 
