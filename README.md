@@ -6,6 +6,8 @@
 - [3. Node](#3-node)
 - [4. Topic](#4-topic)
 - [5. Service](#5-service)
+- [6. Param](#6-param)
+- [7. Action](#7-action)
 
 ## 1. Cấu hình môi trường
 
@@ -102,6 +104,7 @@ Kết quả:
 [INFO] [1783278467.036556781] [turtlesim]: Starting turtlesim with node name /turtlesim
 [INFO] [1783278467.039453937] [turtlesim]: Spawning turtle [turtle1] at x=[5,544445], y=[5,544445], theta=[0,000000]
 ```
+
 ![alt text](docs/images/turtlesim_windows.png)
 
 ### Sử dụng turtlesim
